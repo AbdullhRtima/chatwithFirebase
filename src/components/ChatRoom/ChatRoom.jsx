@@ -12,7 +12,8 @@ function ChatRoom({ firestore, auth }) {
 
     //query data 
     const messagesRef = firestore.collection('messages');
-    const query = messagesRef.orderBy('createdAt').limit(25);
+    const query = messagesRef.orderBy('createdAt')
+
     const [messages] = useCollectionData(query, { idField: 'id' });
 
     // state 
@@ -32,8 +33,8 @@ function ChatRoom({ firestore, auth }) {
 
         setFormValue('');
         dummy.current.scrollIntoView({ behavior: 'smooth' });
-    }
-        ;
+    };
+
     return (
         <div>
             <main>

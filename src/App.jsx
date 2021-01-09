@@ -34,8 +34,6 @@ function App() {
   // hooks 
   const [user] = useAuthState(auth);
 
-  console.log("USER", user?.displayName);
-
   return (
     <div className="App">
 
