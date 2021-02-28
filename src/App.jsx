@@ -21,7 +21,9 @@ import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ExitToAppRounded from '@material-ui/icons/ExitToAppRounded';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+
 import { mainListItems, secondaryListItems } from './components/ItemsList';
 
 import './App.css';
@@ -148,32 +150,12 @@ function App() {
     setOpen(false);
   };
 
+  const handleSignOut = () => {
+    auth.signOut();
+  };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
-    // <div className="App">
-
-    //   <header>
-    //     <h1>{user?.displayName}</h1>
-    //     <SignOut
-    //       auth={auth}
-    //     />
-    //   </header>
-
-    //   <section>
-    //     {
-    //       user ?
-    //         <ChatRoom
-    //           firestore={firestore}
-    //           auth={auth}
-    //         />
-    //         :
-    //         <SignIn
-    //           auth={auth}
-    //         />
-    //     }
-    //   </section>
-    // </div>
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
@@ -188,13 +170,24 @@ function App() {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
+            CHAT FOR FUN
         </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
               <NotificationsIcon />
             </Badge>
           </IconButton>
+
+          {
+            auth.currentUser &&
+            <IconButton
+              color="inherit"
+              onClick={handleSignOut}
+            >
+              <ExitToAppRounded />
+            </IconButton>
+          }
+
         </Toolbar>
       </AppBar>
       <Drawer
@@ -240,9 +233,6 @@ function App() {
               </Paper>
             </Grid>
           </Grid>
-          <Box pt={4}>
-
-          </Box>
         </Container>
       </main>
     </div>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import firebase from 'firebase';
 
@@ -35,6 +35,11 @@ function ChatRoom({ firestore, auth }) {
         dummy.current.scrollIntoView({ behavior: 'smooth' });
     };
 
+    // scroll when income message 
+    useEffect(() => {
+        dummy.current.scrollIntoView({ behavior: 'smooth' });
+    }, [messages]);
+    
     return (
         <div>
             <main>
@@ -42,15 +47,16 @@ function ChatRoom({ firestore, auth }) {
                     return <ChatMessage key={msg.id} message={msg} auth={auth} />
                 })}
                 <span ref={dummy}></span>
+                <form onSubmit={sendMessage}>
+                    <input
+                        value={formValue}
+                        onChange={(e) => setFormValue(e.target.value)}
+                        placeholder="type here ...."
+                    />
+                    <button type="submit" disabled={!formValue}>SEND</button>
+                </form>
             </main>
-            <form onSubmit={sendMessage}>
-                <input
-                    value={formValue}
-                    onChange={(e) => setFormValue(e.target.value)}
-                    placeholder="type here ...."
-                />
-                <button type="submit" disabled={!formValue}>SEND</button>
-            </form>
+
         </div>
     )
 }
